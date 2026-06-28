@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SG Hugelshofen-Dotnacht</title>
+
+<link rel="manifest" href="manifest.json">
+
+<style>
+:root{
+  --black:#111;
+  --yellow:#ffcc00;
+  --blue:#1e4fa8;
+  --red:#c8102e;
+  --bg:#f2f2f2;
+}
+
+/* RESET */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:#111;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ===== HEADER ===== */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:90px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 25px;
+  background:rgba(0,0,0,0.75);
+  backdrop-filter:blur(10px);
+  color:white;
+  z-index:1000;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logo img{
+  height:60px;
+}
+
+/* BURGER */
+.burger{
+  cursor:pointer;
+}
+.burger span{
+  display:block;
+  width:28px;
+  height:3px;
+  background:white;
+  margin:5px 0;
+}
+
+/* NAV */
+nav{
+  position:absolute;
+  right:20px;
+  top:90px;
+  background:#111;
+  display:none;
+  flex-direction:column;
+  border-radius:10px;
+  overflow:hidden;
+}
+
+nav.show{ display:flex; }
+
+nav a{
+  color:white;
+  padding:12px 18px;
+  text-decoration:none;
+}
+
+nav a:hover{
+  background:var(--yellow);
+  color:black;
+}
+
+/* ===== HERO ===== */
+.hero{
+  width:100%;
+  height:60vh;
+  background:url("img/hero.jpg") center/cover no-repeat;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  margin-top:90px;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+}
+
+.hero h1{
+  position:relative;
+  color:white;
+  font-size:42px;
+}
+
+/* ===== SECTIONS ===== */
+main{
+  flex:1;
+}
+
+.page{
+  display:none;
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.page.active{
+  display:block;
+}
+
+/* BOX */
+.box{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:20px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+  border-left:5px solid var(--blue);
+  transition:0.2s;
+}
+
+.box:hover{
+  transform:translateY(-5px);
+}
+
+.box.yellow{ border-left-color:var(--yellow); }
+.box.red{ border-left-color:var(--red); }
+.box.blue{ border-left-color:var(--blue); }
+
+/* IFRAME */
+iframe{
+  width:100%;
+  height:650px;
+  border:none;
+  border-radius:10px;
+}
+
+/* FORM */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+input, textarea{
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+button{
+  padding:12px;
+  border:none;
+  background:var(--black);
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:var(--yellow);
+  color:black;
+}
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:10px;
+}
+
+.gallery img{
+  width:100%;
+  border-radius:10px;
+}
+
+/* FOOTER FIX */
+footer{
+  background:var(--black);
+  color:white;
+  text-align:center;
+  padding:25px;
+  margin-top:auto;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero h1{font-size:28px;}
+  iframe{height:400px;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <img src="img/logo.jpg">
+    <strong>SG Hugelshofen-Dotnacht</strong>
+  </div>
+
+  <div class="burger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+
+  <nav id="nav">
+    <a onclick="show('home')">Home</a>
+    <a onclick="show('news')">News</a>
+    <a onclick="show('programm')">Programm</a>
+    <a onclick="show('ranglisten')">Ranglisten</a>
+    <a onclick="show('galerie')">Galerie</a>
+    <a onclick="show('schnuppern')">Schnuppern</a>
+    <a onclick="show('kontakt')">Kontakt</a>
+    <a href="/admin/">Admin</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Willkommen im Schützenverein</h1>
+</div>
+
+<!-- CONTENT -->
+<main>
+
+<section id="home" class="page active">
+  <div class="box blue">
+    <h2>Willkommen</h2>
+    Tradition, Sport und Gemeinschaft seit 1876.
+  </div>
+</section>
+
+<section id="news" class="page">
+  <div class="box">
+    <h2>News</h2>
+    <p>Hier erscheinen später automatisch die Vereinsnews.</p>
+  </div>
+</section>
+
+<section id="programm" class="page">
+  <div class="box yellow">
+    <h2>Jahresprogramm</h2>
+    <iframe src="pdf/jp-2026.pdf"></iframe>
+  </div>
+</section>
+
+<section id="ranglisten" class="page">
+  <div class="box red">
+    <h2>Ranglisten</h2>
+    <iframe src="pdf/rangliste.pdf"></iframe>
+  </div>
+</section>
+
+<section id="galerie" class="page">
+  <div class="box blue">
+    <h2>Galerie</h2>
+
+    <div class="gallery">
+      <img src="img/Alle.jpg">
+      <img src="img/Im-Stroh.jpg">
+      <img src="img/Nach-dem-schiessen.jpg">
+      <img src="img/OK_27_2.jpg">
+      <img src="img/Schuetzenhuesli_von_oben.jpg">
+      <img src="img/Schwaderloh-Schiessen-2017.jpg">
+      <img src="img/sghd_Fasnacht.jpg">
+      <img src="img/TKSV-2025.jpg">
+    </div>
+
+  </div>
+</section>
+
+<section id="schnuppern" class="page">
+  <div class="box yellow">
+    <h2>Schnupperanfrage</h2>
+
+   <form name="schnuppern" method="POST" data-netlify="true">
+
+  <input type="hidden" name="form-name" value="schnuppern">
+
+  <input type="text" name="name" placeholder="Name" required>
+
+  <input type="email" name="email" placeholder="E-Mail" required>
+
+  <textarea name="message" placeholder="Nachricht"></textarea>
+
+  <button type="submit">Absenden</button>
+
+</form>
+  </div>
+</section>
+
+<section id="kontakt" class="page">
+  <div class="box">
+    <h2>Kontakt</h2>
+    <iframe src="https://www.google.com/maps?q=Hugelshofen+Schweiz&output=embed"></iframe>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+SG Hugelshofen-Dotnacht | © 2026 | seit 1876
+</footer>
+
+<script>
+function show(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.getElementById('nav').classList.remove('show');
+}
+
+function toggleMenu(){
+  document.getElementById('nav').classList.toggle('show');
+}
+</script>
+
+</body>
+</html>
