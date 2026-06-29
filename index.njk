@@ -101,7 +101,7 @@ nav a:hover{
   height:60vh;
   background:url("img/hero.jpg") center/cover no-repeat;
   display:flex;
-  align-items:center;
+  align-items:flex-end;
   justify-content:center;
   text-align:center;
   position:relative;
@@ -119,6 +119,7 @@ nav a:hover{
   position:relative;
   color:white;
   font-size:42px;
+  margin-bottom:60px;
 }
 
 main{
@@ -291,6 +292,7 @@ footer{
     <a onclick="show('schnuppern')">Schnuppern</a>
     <a onclick="show('kontakt')">Kontakt</a>
     <a href="/admin/">Admin</a>
+    <a onclick="show('vorstand')">Vorstand</a>
   </nav>
 </header>
 
@@ -375,14 +377,13 @@ footer{
     <h2>Galerie</h2>
 
     <div class="gallery">
-      <img src="img/Alle.jpg" alt="">
-      <img src="img/Im-Stroh.jpg" alt="">
-      <img src="img/Nach-dem-schiessen.jpg" alt="">
-      <img src="img/OK_27_2.jpg" alt="">
-      <img src="img/Schuetzenhuesli_von_oben.jpg" alt="">
-      <img src="img/Schwaderloh-Schiessen-2017.jpg" alt="">
-      <img src="img/sghd_Fasnacht.jpg" alt="">
-      <img src="img/TKSV-2025.jpg" alt="">
+      {% for bild in collections.galerie %}
+        {% if bild.data.image %}
+          <img src="{{ bild.data.image }}" alt="{{ bild.data.title }}">
+        {% endif %}
+      {% else %}
+        <p>Noch keine Bilder vorhanden.</p>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -400,6 +401,29 @@ footer{
 
       <button type="submit">Absenden</button>
     </form>
+  </div>
+</section>
+
+<section id="vorstand" class="page">
+  <div class="box blue">
+    <h2>Vorstand</h2>
+
+    {% for person in collections.vorstand %}
+      <div class="box">
+        <h3>{{ person.data.role }}</h3>
+        <p><strong>{{ person.data.name }}</strong></p>
+
+        {% if person.data.phone %}
+          <p>Telefon: {{ person.data.phone }}</p>
+        {% endif %}
+
+        {% if person.data.email %}
+          <p>E-Mail: <a href="mailto:{{ person.data.email }}">{{ person.data.email }}</a></p>
+        {% endif %}
+      </div>
+    {% else %}
+      <p>Noch keine Vorstandsmitglieder eingetragen.</p>
+    {% endfor %}
   </div>
 </section>
 
