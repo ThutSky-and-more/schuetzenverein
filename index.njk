@@ -16,7 +16,6 @@
   --bg:#f2f2f2;
 }
 
-/* RESET */
 *{
   margin:0;
   padding:0;
@@ -32,7 +31,6 @@ body{
   flex-direction:column;
 }
 
-/* ===== HEADER ===== */
 header{
   position:fixed;
   top:0;
@@ -59,10 +57,10 @@ header{
   height:60px;
 }
 
-/* BURGER */
 .burger{
   cursor:pointer;
 }
+
 .burger span{
   display:block;
   width:28px;
@@ -71,7 +69,6 @@ header{
   margin:5px 0;
 }
 
-/* NAV */
 nav{
   position:absolute;
   right:20px;
@@ -83,12 +80,15 @@ nav{
   overflow:hidden;
 }
 
-nav.show{ display:flex; }
+nav.show{
+  display:flex;
+}
 
 nav a{
   color:white;
   padding:12px 18px;
   text-decoration:none;
+  cursor:pointer;
 }
 
 nav a:hover{
@@ -96,7 +96,6 @@ nav a:hover{
   color:black;
 }
 
-/* ===== HERO ===== */
 .hero{
   width:100%;
   height:60vh;
@@ -122,7 +121,6 @@ nav a:hover{
   font-size:42px;
 }
 
-/* ===== SECTIONS ===== */
 main{
   flex:1;
 }
@@ -132,13 +130,13 @@ main{
   max-width:1100px;
   margin:auto;
   padding:40px 20px;
+  animation:fadeIn 0.3s ease;
 }
 
 .page.active{
   display:block;
 }
 
-/* BOX */
 .box{
   background:white;
   padding:20px;
@@ -151,21 +149,32 @@ main{
 
 .box:hover{
   transform:translateY(-5px);
+  box-shadow:0 10px 24px rgba(0,0,0,0.15);
 }
 
 .box.yellow{ border-left-color:var(--yellow); }
 .box.red{ border-left-color:var(--red); }
 .box.blue{ border-left-color:var(--blue); }
 
-/* IFRAME */
+.news-item,
+.rangliste-item{
+  margin-top:18px;
+}
+
+.news-date,
+.rangliste-date{
+  display:block;
+  margin:6px 0 12px;
+  opacity:0.65;
+}
+
 iframe{
   width:100%;
-  height:650px;
+  height:750px;
   border:none;
   border-radius:10px;
 }
 
-/* FORM */
 form{
   display:flex;
   flex-direction:column;
@@ -192,7 +201,6 @@ button:hover{
   color:black;
 }
 
-/* GALLERY */
 .gallery{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
@@ -201,10 +209,16 @@ button:hover{
 
 .gallery img{
   width:100%;
+  height:180px;
+  object-fit:cover;
   border-radius:10px;
+  transition:0.2s;
 }
 
-/* FOOTER FIX */
+.gallery img:hover{
+  transform:scale(1.03);
+}
+
 footer{
   background:var(--black);
   color:white;
@@ -213,25 +227,59 @@ footer{
   margin-top:auto;
 }
 
-/* MOBILE */
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
 @media(max-width:768px){
-  .hero h1{font-size:28px;}
-  iframe{height:400px;}
+  header{
+    height:80px;
+    padding:0 15px;
+  }
+
+  .logo img{
+    height:52px;
+  }
+
+  .logo strong{
+    font-size:14px;
+  }
+
+  nav{
+    top:80px;
+    right:10px;
+  }
+
+  .hero{
+    margin-top:80px;
+    height:50vh;
+  }
+
+  .hero h1{
+    font-size:28px;
+    padding:0 20px;
+  }
+
+  iframe{
+    height:520px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
 <header>
   <div class="logo">
-    <img src="img/logo.jpg">
+    <img src="img/logo.jpg" alt="Logo SG Hugelshofen-Dotnacht">
     <strong>SG Hugelshofen-Dotnacht</strong>
   </div>
 
-  <div class="burger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
+  <div class="burger" onclick="toggleMenu()" aria-label="Menü öffnen">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
 
   <nav id="nav">
@@ -246,25 +294,51 @@ footer{
   </nav>
 </header>
 
-<!-- HERO -->
 <div class="hero">
   <h1>Willkommen im Schützenverein</h1>
 </div>
 
-<!-- CONTENT -->
 <main>
 
 <section id="home" class="page active">
   <div class="box blue">
     <h2>Willkommen</h2>
-    Tradition, Sport und Gemeinschaft seit 1876.
+    <p>Tradition, Sport und Gemeinschaft seit 1876.</p>
+  </div>
+
+  <div class="box yellow">
+    <h2>Obligatorische Bundesübung</h2>
+    <p>Immer Ostermontag und am letzten Mittwoch im August.</p>
+  </div>
+
+  <div class="box red">
+    <h2>Aktuelle Vereinsnews</h2>
+
+    {% for post in collections.news | slice(0, 3) %}
+      <div class="box news-item">
+        <h3>{{ post.data.title }}</h3>
+        <small class="news-date">{{ post.data.date | date: "%d.%m.%Y" }}</small>
+        <div>{{ post.content | safe }}</div>
+      </div>
+    {% else %}
+      <p>Noch keine News vorhanden.</p>
+    {% endfor %}
   </div>
 </section>
 
 <section id="news" class="page">
-  <div class="box">
+  <div class="box blue">
     <h2>News</h2>
-    <p>Hier erscheinen später automatisch die Vereinsnews.</p>
+
+    {% for post in collections.news %}
+      <div class="box news-item">
+        <h3>{{ post.data.title }}</h3>
+        <small class="news-date">{{ post.data.date | date: "%d.%m.%Y" }}</small>
+        <div>{{ post.content | safe }}</div>
+      </div>
+    {% else %}
+      <p>Noch keine News vorhanden.</p>
+    {% endfor %}
   </div>
 </section>
 
@@ -278,7 +352,19 @@ footer{
 <section id="ranglisten" class="page">
   <div class="box red">
     <h2>Ranglisten</h2>
-    <iframe src="pdf/rangliste.pdf"></iframe>
+
+    {% for item in collections.ranglisten %}
+      <div class="box rangliste-item">
+        <h3>{{ item.data.title }}</h3>
+        <small class="rangliste-date">{{ item.data.date | date: "%d.%m.%Y" }}</small>
+
+        {% if item.data.pdf %}
+          <iframe src="{{ item.data.pdf }}"></iframe>
+        {% endif %}
+      </div>
+    {% else %}
+      <p>Noch keine Ranglisten vorhanden.</p>
+    {% endfor %}
   </div>
 </section>
 
@@ -287,16 +373,15 @@ footer{
     <h2>Galerie</h2>
 
     <div class="gallery">
-      <img src="img/Alle.jpg">
-      <img src="img/Im-Stroh.jpg">
-      <img src="img/Nach-dem-schiessen.jpg">
-      <img src="img/OK_27_2.jpg">
-      <img src="img/Schuetzenhuesli_von_oben.jpg">
-      <img src="img/Schwaderloh-Schiessen-2017.jpg">
-      <img src="img/sghd_Fasnacht.jpg">
-      <img src="img/TKSV-2025.jpg">
+      <img src="img/Alle.jpg" alt="">
+      <img src="img/Im-Stroh.jpg" alt="">
+      <img src="img/Nach-dem-schiessen.jpg" alt="">
+      <img src="img/OK_27_2.jpg" alt="">
+      <img src="img/Schuetzenhuesli_von_oben.jpg" alt="">
+      <img src="img/Schwaderloh-Schiessen-2017.jpg" alt="">
+      <img src="img/sghd_Fasnacht.jpg" alt="">
+      <img src="img/TKSV-2025.jpg" alt="">
     </div>
-
   </div>
 </section>
 
@@ -304,41 +389,40 @@ footer{
   <div class="box yellow">
     <h2>Schnupperanfrage</h2>
 
-   <form name="schnuppern" method="POST" data-netlify="true">
+    <form name="schnuppern" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="schnuppern">
 
-  <input type="hidden" name="form-name" value="schnuppern">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="E-Mail" required>
+      <textarea name="message" placeholder="Nachricht"></textarea>
 
-  <input type="text" name="name" placeholder="Name" required>
-
-  <input type="email" name="email" placeholder="E-Mail" required>
-
-  <textarea name="message" placeholder="Nachricht"></textarea>
-
-  <button type="submit">Absenden</button>
-
-</form>
+      <button type="submit">Absenden</button>
+    </form>
   </div>
 </section>
 
 <section id="kontakt" class="page">
-  <div class="box">
+  <div class="box blue">
     <h2>Kontakt</h2>
-    <iframe src="https://www.google.com/maps?q=Hugelshofen+Schweiz&output=embed"></iframe>
+    <iframe style="height:330px;" src="https://www.google.com/maps?q=Hugelshofen+Schweiz&output=embed"></iframe>
   </div>
 </section>
 
 </main>
 
-<!-- FOOTER -->
 <footer>
 SG Hugelshofen-Dotnacht | © 2026 | seit 1876
 </footer>
 
 <script>
 function show(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(function(page){
+    page.classList.remove('active');
+  });
+
   document.getElementById(id).classList.add('active');
   document.getElementById('nav').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function toggleMenu(){
