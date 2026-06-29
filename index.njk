@@ -317,7 +317,7 @@ footer{
     {% for post in collections.news | slice(0, 3) %}
       <div class="box news-item">
         <h3>{{ post.data.title }}</h3>
-        <small class="news-date">{{ post.data.date | date: "%d.%m.%Y" }}</small>
+        <small class="news-date">{{ post.data.date | date("%d.%m.%Y") }}</small>
         <div>{{ post.content | safe }}</div>
       </div>
     {% else %}
@@ -333,7 +333,7 @@ footer{
     {% for post in collections.news %}
       <div class="box news-item">
         <h3>{{ post.data.title }}</h3>
-        <small class="news-date">{{ post.data.date | date: "%d.%m.%Y" }}</small>
+        <small class="news-date">{{ post.data.date | date("%d.%m.%Y") }}</small>
         <div>{{ post.content | safe }}</div>
       </div>
     {% else %}
@@ -356,7 +356,7 @@ footer{
     {% for item in collections.ranglisten %}
       <div class="box rangliste-item">
         <h3>{{ item.data.title }}</h3>
-        <small class="rangliste-date">{{ item.data.date | date: "%d.%m.%Y" }}</small>
+        <small class="rangliste-date">{{ item.data.date | date("%d.%m.%Y") }}</small>
 
         {% if item.data.pdf %}
           <iframe src="{{ item.data.pdf }}"></iframe>
