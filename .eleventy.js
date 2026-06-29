@@ -17,6 +17,14 @@ module.exports = function(eleventyConfig) {
     return collectionApi.getFilteredByGlob("./content/ranglisten/*.md").reverse();
   });
 
+  eleventyConfig.addCollection("galerie", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("./content/galerie/*.md").reverse();
+  });
+
+  eleventyConfig.addCollection("vorstand", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("./content/vorstand/*.md");
+  });
+
   return {
     dir: {
       input: ".",
