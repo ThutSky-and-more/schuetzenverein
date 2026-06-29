@@ -9,6 +9,14 @@ module.exports = function(eleventyConfig) {
     return new Date(value).toLocaleDateString("de-CH");
   });
 
+  eleventyConfig.addCollection("news", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("./content/news/*.md").reverse();
+  });
+
+  eleventyConfig.addCollection("ranglisten", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("./content/ranglisten/*.md").reverse();
+  });
+
   return {
     dir: {
       input: ".",
