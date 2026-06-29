@@ -56,7 +56,6 @@ body{
   display:flex;
   flex-direction:column;
 }
-
 header{
   position:fixed;
   top:0;
@@ -67,13 +66,19 @@ header{
   justify-content:space-between;
   align-items:center;
   padding:0 25px;
-  background:rgba(0,0,0,0.75);
+  background:rgba(30,79,168,0.95); /* Vereinsblau */
   backdrop-filter:blur(10px);
   color:white;
   z-index:1000;
+  box-shadow:0 4px 15px rgba(0,0,0,0.25);
 }
 
 .logo{
+.logo strong{
+  color:white;
+  font-size:22px;
+  font-weight:bold;
+}
   display:flex;
   align-items:center;
   gap:12px;
