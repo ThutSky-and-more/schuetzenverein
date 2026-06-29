@@ -314,27 +314,51 @@ footer{
   <div class="box red">
     <h2>Aktuelle Vereinsnews</h2>
 
-       {% for post in collections.news | slice(0, 3) %}
-      <div class="box news-item">
-        <h3>{{ post.data.title }}</h3>
-        <small class="news-date">{{ post.data.date | date: "%d.%m.%Y" }}</small>
-        <small class="news-date">{{ post.data.date | date("%d.%m.%Y") }}</small>
-        <div>{{ post.content | safe }}</div>
-      </div>
+    {% for post in collections.news %}
+      {% if loop.index <= 3 %}
+        <div class="box news-item">
+          <h3>{{ post.data.title }}</h3>
+          <small class="news-date">{{ post.data.date | datum }}</small>
+          <div>{{ post.content | safe }}</div>
+        </div>
+      {% endif %}
     {% else %}
+      <p>Noch keine News vorhanden.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="news" class="page">
+  <div class="box blue">
+    <h2>News</h2>
+
     {% for post in collections.news %}
       <div class="box news-item">
         <h3>{{ post.data.title }}</h3>
-        <small class="news-date">{{ post.data.date | date: "%d.%m.%Y" }}</small>
-        <small class="news-date">{{ post.data.date | date("%d.%m.%Y") }}</small>
+        <small class="news-date">{{ post.data.date | datum }}</small>
         <div>{{ post.content | safe }}</div>
       </div>
     {% else %}
+      <p>Noch keine News vorhanden.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="programm" class="page">
+  <div class="box yellow">
+    <h2>Jahresprogramm</h2>
+    <iframe src="pdf/jp-2026.pdf"></iframe>
+  </div>
+</section>
+
+<section id="ranglisten" class="page">
+  <div class="box red">
+    <h2>Ranglisten</h2>
+
     {% for item in collections.ranglisten %}
       <div class="box rangliste-item">
         <h3>{{ item.data.title }}</h3>
-        <small class="rangliste-date">{{ item.data.date | date: "%d.%m.%Y" }}</small>
-        <small class="rangliste-date">{{ item.data.date | date("%d.%m.%Y") }}</small>
+        <small class="rangliste-date">{{ item.data.date | datum }}</small>
 
         {% if item.data.pdf %}
           <iframe src="{{ item.data.pdf }}"></iframe>
