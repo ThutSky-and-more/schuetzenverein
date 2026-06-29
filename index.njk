@@ -35,11 +35,13 @@
 
 <style>
 :root{
-  --black:#111;
-  --yellow:#ffcc00;
-  --blue:#1e4fa8;
-  --red:#c8102e;
-  --bg:#f2f2f2;
+  --black:#080808;
+  --yellow:#F4F81B;
+  --blue:#1A29DA;
+  --red:#ED1E32;
+  --bg:#f3f3f3;
+
+  --shadow:rgba(0,0,0,.18);
 }
 
 *{
@@ -61,16 +63,26 @@ header{
   top:0;
   left:0;
   width:100%;
-  height:90px;
+  height:95px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:0 25px;
-  background:rgba(30,79,168,0.95); /* Vereinsblau */
-  backdrop-filter:blur(10px);
+  padding:0 30px;
+
+  background:rgba(26,41,218,.97);
+
+  backdrop-filter:blur(12px);
+
   color:white;
+
   z-index:1000;
-  box-shadow:0 4px 15px rgba(0,0,0,0.25);
+
+  box-shadow:0 5px 18px rgba(0,0,0,.25);
+
+  border-bottom:4px solid var(--yellow);
+}
+
+  box-shadow:0 5px 20px rgba(0,0,0,.25);
 }
 
 .logo{
