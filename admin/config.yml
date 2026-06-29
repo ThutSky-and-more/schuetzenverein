@@ -2,8 +2,8 @@ backend:
   name: git-gateway
   branch: main
 
-media_folder: "pdf"
-public_folder: "/pdf"
+media_folder: "img/uploads"
+public_folder: "/img/uploads"
 
 collections:
   - name: "news"
@@ -24,4 +24,24 @@ collections:
     fields:
       - { label: "Titel", name: "title", widget: "string" }
       - { label: "Datum", name: "date", widget: "datetime" }
-      - { label: "PDF", name: "pdf", widget: "file" }
+      - { label: "PDF", name: "pdf", widget: "file", media_folder: "/pdf", public_folder: "/pdf" }
+
+  - name: "galerie"
+    label: "Galerie"
+    folder: "content/galerie"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Bild", name: "image", widget: "image" }
+
+  - name: "vorstand"
+    label: "Vorstand"
+    folder: "content/vorstand"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Funktion", name: "role", widget: "string" }
+      - { label: "Name", name: "name", widget: "string" }
+      - { label: "Telefon", name: "phone", widget: "string", required: false }
+      - { label: "E-Mail", name: "email", widget: "string", required: false }
