@@ -1,4 +1,4 @@
 ---
-title: OK
-image: /img/uploads/ok_27_2.jpg
+title: Im Stroh
+image: /img/uploads/im-stroh.jpg
 ---
