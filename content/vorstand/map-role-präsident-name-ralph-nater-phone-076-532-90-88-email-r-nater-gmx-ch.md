@@ -1,6 +1,6 @@
 ---
-role: "Präsident  "
-name: Ralph Nater
-phone: " 076 532 90 88"
-email: r.nater@gmx.ch
+role: Jungschützenleiter
+name: Marius Ulrich
+phone: 079 766 44 45
+email: mary1997@windowslive.com
 ---
